@@ -150,6 +150,7 @@ export const Hero = () => {
     }, [currentIndex, isLoaded, images]);
 
     const toggleFruit = () => {
+        sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
         setCurrentFruit(prev => prev === 'mango' ? 'apple' : 'mango');
     };
 
