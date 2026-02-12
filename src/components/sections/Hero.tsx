@@ -188,7 +188,14 @@ export const Hero = () => {
                     {/* Canvas for Animation */}
                     <canvas
                         ref={canvasRef}
-                        className="w-full h-full object-cover z-10"
+                        className="relative w-full h-full object-cover z-10"
+                    />
+
+                    {/* Placeholder Image (First Frame) - Visible while canvas loads or as fallback */}
+                    <img
+                        src={frameSets[currentFruit][0]}
+                        alt="Hero Background"
+                        className="absolute top-0 left-0 w-full h-full object-cover z-0"
                     />
                 </div>
 
