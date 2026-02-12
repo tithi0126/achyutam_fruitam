@@ -1,0 +1,71 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: ${{ secrets.HOSTINGER_PORT || 22 }}
+          source: "dist"
+          target: "/home/ubuntu/Public/apps"
+          rm: true
+
+      - name: Start Application via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: ${{ secrets.HOSTINGER_PORT || 22 }}
+          script: |
+            # Install pm2 and serve globally if they are not installed
+            if ! command -v pm2 &> /dev/null; then
+                echo "Installing pm2 and serve..."
+                npm install -g pm2 serve
+            fi
+            
+            # Check if serve is installed (it usually comes with pm2 serve support but let's be sure)
+             if ! command -v serve &> /dev/null; then
+                npm install -g serve
+            fi
+
+            # Reload or Start application
+            # Path will be /home/ubuntu/Public/apps/dist because we copied 'dist' folder to 'apps'
+            
+            pm2 describe achyutam-fruitam > /dev/null
+            RUNNING=$?
+
+            if [ "${RUNNING}" -ne 0 ]; then
+              echo "Starting application with pm2..."
+              pm2 serve /home/ubuntu/Public/apps/dist 5008 --name "achyutam-fruitam" --spa
+            else
+              echo "Restarting application..."
+              pm2 restart achyutam-fruitam
+            fi
+            
+            pm2 save
