@@ -54,6 +54,13 @@ jobs:
                 npm install -g serve
             fi
 
+            # Open firewall port 5008
+            if command -v ufw &> /dev/null; then
+                echo "Allowing port 5008 in firewall..."
+                ufw allow 5008/tcp
+                ufw reload || true
+            fi
+            
             # Reload or Start application
             # Path will be /home/ubuntu/Public/apps/dist because we copied 'dist' folder to 'apps'
             
