@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #0D5C5C;
+  --color-brand-dark: #0A4848;
+  --color-brand-light: #E6F2F2;
+  --color-fruit-mango: #FF9F1C;
+  --color-fruit-pomegranate: #E63946;
+  --color-fruit-guava: #F77F00;
+  --font-heading: 'Josefin Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-body text-gray-800 bg-[#FFF8F0] overflow-x-hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-brand-dark;
+  }
+}
