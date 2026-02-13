@@ -172,7 +172,7 @@ export const Products = ({ limit, showViewAll = false, categoryCount }: Products
                                 <ScrollReveal key={category} delay={categoryIndex * 0.1} width="100%">
                                     <div className="relative" style={{ perspective: "1000px" }}>
                                         <motion.div
-                                            className="relative bg-[#D2E5C5] border-[5px] border-[#4A8391] rounded-3xl shadow-2xl transition-all duration-500 h-[500px]"
+                                            className="relative bg-[#D2E5C5] border-[5px] border-[#4A8391] rounded-3xl shadow-2xl transition-all duration-500 h-[400px] md:h-[500px]"
                                             layout
                                         >
                                             {/* Inner Content Wrapper for Clipping */}
@@ -242,7 +242,7 @@ export const Products = ({ limit, showViewAll = false, categoryCount }: Products
                                                 {/* Left Shutter */}
                                                 <motion.div
                                                     className="absolute top-0 left-0 w-1/2 h-full bg-[#D2E5C5] border-r-[3px] border-[#4A8391] origin-left z-20 cursor-pointer pointer-events-auto shadow-lg"
-                                                    style={{ borderRadius: "100% 0 0 0" }} // Arched top left
+                                                    style={{ borderTopLeftRadius: "100% 250px" }} // Arched top left
                                                     animate={{ rotateY: isOpen ? -140 : 0 }}
                                                     transition={{ duration: 0.8, ease: "easeInOut" }}
                                                     onClick={(e) => { e.stopPropagation(); toggleCategory(category); }}
@@ -254,7 +254,7 @@ export const Products = ({ limit, showViewAll = false, categoryCount }: Products
                                                 {/* Right Shutter */}
                                                 <motion.div
                                                     className="absolute top-0 right-0 w-1/2 h-full bg-[#D2E5C5] border-l-[3px] border-[#4A8391] origin-right z-20 cursor-pointer pointer-events-auto shadow-lg"
-                                                    style={{ borderRadius: "0 100% 0 0" }} // Arched top right
+                                                    style={{ borderTopRightRadius: "100% 250px" }} // Arched top right
                                                     animate={{ rotateY: isOpen ? 140 : 0 }}
                                                     transition={{ duration: 0.8, ease: "easeInOut" }}
                                                     onClick={(e) => { e.stopPropagation(); toggleCategory(category); }}
