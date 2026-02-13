@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Instagram } from 'lucide-react';
-// import { Button } from '../ui/button';
 import { cn } from '../../lib/utils';
 import logo from '../../assets/logo.jpg';
+import { MagneticButton } from '../ui/MagneticButton';
 
 const navLinks = [
     { name: 'Home', path: '/' },
@@ -32,6 +32,33 @@ export const Navbar = () => {
         setIsOpen(false);
     }, [location]);
 
+    const handleFranchiseClick = () => {
+        setIsOpen(false);
+        // Navigate to contact page or scroll to contact section
+        if (location.pathname === '/') {
+            // If on home page, scroll to contact section
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            // Navigate to contact page
+            window.location.href = '/contact';
+        }
+    };
+
+    // Prevent body scroll when mobile menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     const isHome = location.pathname === '/';
     const isTransparent = isHome && !scrolled;
 
@@ -44,8 +71,24 @@ export const Navbar = () => {
         >
             <div className="container mx-auto px-4 flex items-center justify-between">
                 {/* Logo */}
-                <Link to="/" className="flex items-center gap-2">
-                    <img src={logo} alt="Achyutam Fruitam" className="h-12 w-auto rounded-full" />
+                <Link to="/" className="flex items-center gap-3 group">
+                    <motion.img
+                        src={logo}
+                        alt="Achyutam Fruitam"
+                        className="h-12 w-auto rounded-full transition-transform group-hover:scale-110"
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.6 }}
+                    />
+                    <motion.span
+                        className={cn(
+                            "text-xl font-bold font-heading transition-colors",
+                            isTransparent ? "text-white" : "text-brand-dark"
+                        )}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                    >
+                        Achyutam Fruitam
+                    </motion.span>
                 </Link>
 
                 {/* Desktop Menu */}
@@ -73,7 +116,14 @@ export const Navbar = () => {
                             <Instagram className="w-5 h-5" />
                         </button>
                     </a>
-                    <button className="bg-fruit-mango text-white px-4 py-2 rounded-md text-sm hover:bg-orange-600 transition-colors">Franchise Inquiry</button>
+                    <MagneticButton
+                        onClick={handleFranchiseClick}
+                        className={cn(
+                            "bg-fruit-mango text-white px-4 py-2 rounded-md text-sm hover:bg-orange-600 transition-colors cursor-pointer"
+                        )}
+                    >
+                        Franchise Inquiry
+                    </MagneticButton>
                 </div>
 
                 {/* Mobile Toggle */}
@@ -88,34 +138,67 @@ export const Navbar = () => {
                 </button>
             </div>
 
-            {/* Mobile Menu Overlay */}
+            {/* Mobile Menu Overlay - Full Screen */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="absolute top-full left-0 right-0 bg-white shadow-lg md:hidden flex flex-col p-4 border-t"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 bg-white z-40 md:hidden overflow-y-auto"
                     >
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                to={link.path}
-                                className={cn(
-                                    "py-3 px-4 text-lg font-medium border-b border-gray-100 last:border-none",
-                                    location.pathname === link.path ? "text-brand-green" : "text-gray-800"
-                                )}
+                        {/* Close Button */}
+                        <button
+                            onClick={() => setIsOpen(false)}
+                            className="absolute top-6 right-6 p-2 text-gray-800 hover:text-brand-green transition-colors"
+                            aria-label="Close menu"
+                        >
+                            <X className="w-8 h-8" />
+                        </button>
+
+                        <div className="min-h-screen flex flex-col items-center justify-center p-8">
+                            {/* Navigation Links */}
+                            <nav className="flex flex-col items-center gap-6 mb-12">
+                                {navLinks.map((link, index) => (
+                                    <motion.div
+                                        key={link.name}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.1 }}
+                                    >
+                                        <Link
+                                            to={link.path}
+                                            className={cn(
+                                                "text-2xl font-semibold transition-colors",
+                                                location.pathname === link.path ? "text-brand-green" : "text-gray-800 hover:text-brand-green"
+                                            )}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </nav>
+
+                            {/* Action Buttons */}
+                            <motion.div
+                                className="flex flex-col items-center gap-4 w-full max-w-xs"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: navLinks.length * 0.1 }}
                             >
-                                {link.name}
-                            </Link>
-                        ))}
-                        <div className="mt-4 flex flex-col gap-3">
-                            <a href="https://instagram.com/achyutam_fruitam" target="_blank" rel="noopener noreferrer" className="w-full">
-                                <button className="w-full flex items-center justify-center gap-2 border border-brand-green text-brand-green py-2 rounded hover:bg-gray-50 text-sm font-medium transition-colors">
-                                    <Instagram className="w-4 h-4" /> Follow on Instagram
+                                <a href="https://instagram.com/achyutam_fruitam" target="_blank" rel="noopener noreferrer" className="w-full">
+                                    <button className="w-full flex items-center justify-center gap-2 border-2 border-brand-green text-brand-green py-3 rounded-lg hover:bg-brand-green hover:text-white font-medium transition-all">
+                                        <Instagram className="w-5 h-5" /> Follow on Instagram
+                                    </button>
+                                </a>
+                                <button
+                                    onClick={handleFranchiseClick}
+                                    className="w-full bg-fruit-mango text-white py-3 rounded-lg hover:bg-orange-600 font-medium transition-colors shadow-lg"
+                                >
+                                    Franchise Inquiry
                                 </button>
-                            </a>
-                            <button className="w-full bg-fruit-mango text-white py-2 rounded hover:bg-orange-600 text-sm font-medium transition-colors">Franchise Inquiry</button>
+                            </motion.div>
                         </div>
                     </motion.div>
                 )}
