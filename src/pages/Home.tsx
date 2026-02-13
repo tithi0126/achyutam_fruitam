@@ -10,8 +10,8 @@ export const Home = () => {
         <main className="w-full">
             <Hero />
             <About />
-            <Products />
-            <StoreLocator />
+            <Products categoryCount={2} showViewAll={true} />
+            <StoreLocator limit={3} showViewAll={true} />
             <Contact />
             <InstagramFeed />
         </main>
