@@ -11,7 +11,7 @@ export const Home = () => {
             <Hero />
             <About />
             <Products categoryCount={2} showViewAll={true} />
-            <StoreLocator limit={3} showViewAll={true} />
+            <StoreLocator limit={2} showViewAll={true} />
             <Contact />
             <InstagramFeed />
         </main>

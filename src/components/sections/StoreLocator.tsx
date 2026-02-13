@@ -67,7 +67,17 @@ export const StoreLocator = ({ limit, showViewAll = false }: StoreLocatorProps =
     );
 
     // Apply limit if provided (ignoring search if limited, usually on Home page)
-    const displayedStores = limit ? stores.slice(0, limit) : filteredStores;
+    // Prioritize Surat stores when limiting
+    const sortedStores = [...stores].sort((a, b) => {
+        const priorityCity = 'Surat';
+        const isASurat = a.city === priorityCity;
+        const isBSurat = b.city === priorityCity;
+        if (isASurat && !isBSurat) return -1;
+        if (!isASurat && isBSurat) return 1;
+        return 0;
+    });
+
+    const displayedStores = limit ? sortedStores.slice(0, limit) : filteredStores;
     const isLimited = limit && stores.length > limit;
 
     // Group stores by city
