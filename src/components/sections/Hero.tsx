@@ -1,10 +1,12 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { ParticleBackground } from '../ui/ParticleBackground';
+import { MagneticButton } from '../ui/MagneticButton';
 
 // Import all mango frames
-const mangoFramesRaw = import.meta.glob('../../assets/mango-frames/*.jpg', { eager: true, as: 'url' });
-const appleFramesRaw = import.meta.glob('../../assets/apple-frames/*.jpg', { eager: true, as: 'url' });
+const mangoFramesRaw = import.meta.glob('../../assets/mango/*.jpg', { eager: true, as: 'url' });
+const appleFramesRaw = import.meta.glob('../../assets/apple2/*.jpg', { eager: true, as: 'url' });
 
 const sortFrames = (frames: Record<string, string>) => {
     return Object.values(frames).sort((a, b) => {
@@ -109,11 +111,22 @@ export const Hero = () => {
                     let drawWidth, drawHeight, offsetX, offsetY;
 
                     if (imgAspect > canvasAspect) {
-                        // Image is wider relative to canvas -> match height, crop width
-                        drawHeight = rect.height;
-                        drawWidth = rect.height * imgAspect;
-                        offsetX = (rect.width - drawWidth) / 2;
-                        offsetY = 0;
+                        // Image is wider relative to canvas
+                        if (canvasAspect < 1) {
+                            // Mobile/Portrait: Contain width (make it fit within width)
+                            // We scale it down slightly (e.g., 90% of screen width) so it's not edge-to-edge huge
+                            const scaleFactor = 0.9;
+                            drawWidth = rect.width * scaleFactor;
+                            drawHeight = drawWidth / imgAspect;
+                            offsetX = (rect.width - drawWidth) / 2;
+                            offsetY = (rect.height - drawHeight) / 2;
+                        } else {
+                            // Desktop/Landscape: Match height, crop width
+                            drawHeight = rect.height;
+                            drawWidth = rect.height * imgAspect;
+                            offsetX = (rect.width - drawWidth) / 2;
+                            offsetY = 0;
+                        }
                     } else {
                         // Image is taller relative to canvas -> match width, crop height
                         drawWidth = rect.width;
@@ -159,6 +172,8 @@ export const Hero = () => {
     return (
         <section ref={sectionRef} className="relative h-[500vh] bg-black">
             <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+                {/* Particle Background */}
+                <ParticleBackground className="z-0" particleCount={80} />
 
                 <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
 
@@ -172,15 +187,23 @@ export const Hero = () => {
                                 exit={{ opacity: 0, y: -20 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <span className="inline-block py-1 px-4 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 text-sm font-medium mb-6 tracking-wide">
+                                <motion.span
+                                    className="inline-block py-1 px-4 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 text-sm font-medium mb-6 tracking-wide"
+                                    initial={{ scale: 0.8, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    transition={{ delay: 0.2, duration: 0.4 }}
+                                >
                                     {currentContent.tagline}
-                                </span>
-                                <h1 className="text-5xl md:text-8xl font-bold font-heading text-white leading-[1.1] mb-8 tracking-tight">
+                                </motion.span>
+                                <h1 className="text-4xl md:text-8xl font-bold font-heading text-white leading-[1.1] mb-8 tracking-tight">
                                     {currentContent.title}
                                 </h1>
-                                <p
+                                <motion.p
                                     className="text-lg md:text-2xl text-white/90 mb-10 max-w-2xl mx-auto font-light leading-relaxed"
                                     dangerouslySetInnerHTML={{ __html: currentContent.description }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4, duration: 0.5 }}
                                 />
                             </motion.div>
                         </AnimatePresence>
@@ -192,30 +215,28 @@ export const Hero = () => {
                         className="relative w-full h-full object-cover z-10"
                     />
 
-                    {/* Placeholder Image (First Frame) - Visible while canvas loads or as fallback */}
+                    {/* Background Image */}
                     <img
-                        src={frameSets[currentFruit][0]}
+                        src={new URL(`../../assets/${currentFruit}back.png`, import.meta.url).href}
                         alt="Hero Background"
                         className="absolute top-0 left-0 w-full h-full object-cover z-0"
                     />
                 </div>
 
-                {/* Navigation Buttons - Left/Right Arrows */}
-                <button
+                {/* Navigation Buttons - Left/Right Arrows with Magnetic Effect */}
+                <MagneticButton
                     onClick={toggleFruit}
                     className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all border border-white/20 group"
-                    aria-label={currentFruit === 'mango' ? "Next: Apple" : "Next: Mango"}
                 >
                     <ChevronRight className="w-8 h-8 opacity-80 group-hover:opacity-100" />
-                </button>
+                </MagneticButton>
 
-                <button
+                <MagneticButton
                     onClick={toggleFruit}
                     className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all border border-white/20 group"
-                    aria-label={currentFruit === 'mango' ? "Prev: Apple" : "Prev: Mango"}
                 >
                     <ChevronLeft className="w-8 h-8 opacity-80 group-hover:opacity-100" />
-                </button>
+                </MagneticButton>
 
 
                 {/* Scroll Indicator */}
