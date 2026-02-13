@@ -15,12 +15,13 @@
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: light !important;
   }
 
   body {
     @apply font-body text-gray-800 bg-[#FFF8F0] overflow-x-hidden;
     scroll-behavior: smooth;
+    color-scheme: light !important;
   }
 
   h1,
