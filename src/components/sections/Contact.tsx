@@ -18,9 +18,24 @@ export const Contact = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle form submission logic here (e.g., API call)
-        console.log('Form submitted:', formData);
-        alert('Thank you for contacting us! We will get back to you shortly.');
+
+        // Construct the WhatsApp message
+        const message = `Hello Achyutam Fruitam!
+        
+*New Inquiry*
+*Name:* ${formData.name}
+*Phone:* ${formData.phone}
+*Email:* ${formData.email}
+*Type:* ${formData.subject}
+*Message:* ${formData.message}`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/919825600097?text=${encodedMessage}`;
+
+        // Open WhatsApp in a new tab
+        window.open(whatsappUrl, '_blank');
+
+        alert('Thank you! Redirecting you to WhatsApp to send your message.');
         setFormData({ name: '', email: '', phone: '', subject: 'General Inquiry', message: '' });
     };
 
