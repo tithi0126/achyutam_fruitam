@@ -13,7 +13,7 @@ import muskmelon from '../../assets/menu/muskmelon_fruit_bomb.jpeg';
 import mixFruit from '../../assets/menu/mix_fruit_ice_cream.jpg';
 import jamun from '../../assets/menu/jamun_fruit_ice_cream.jpeg';
 import kesarPista from '../../assets/menu/kesar_pista_ice_cream.jpg';
-import lotus from '../../assets/menu/lotus_biscoff_bliss_shake.png';
+// import lotus from '../../assets/menu/lotus_biscoff_bliss_shake.png';
 import mawaMalai from '../../assets/menu/mawa_malai_kulfi.png';
 import orange from '../../assets/orange.png';
 import pomegranate from '../../assets/pomogranate.png';
@@ -246,7 +246,7 @@ export const Products = ({ limit, showViewAll = false, categoryCount }: Products
                                                     animate={{ rotateY: isOpen ? -140 : 0 }}
                                                     transition={{ duration: 0.8, ease: "easeInOut" }}
                                                     onClick={(e) => { e.stopPropagation(); toggleCategory(category); }}
-                                                    whileHover={{ brightness: isOpen ? 1 : 0.95 }}
+                                                    whileHover={{ filter: isOpen ? "brightness(1)" : "brightness(0.95)" }}
                                                 >
                                                     <div className="w-full h-full bg-gradient-to-b from-transparent to-black/5" />
                                                 </motion.div>
@@ -258,7 +258,7 @@ export const Products = ({ limit, showViewAll = false, categoryCount }: Products
                                                     animate={{ rotateY: isOpen ? 140 : 0 }}
                                                     transition={{ duration: 0.8, ease: "easeInOut" }}
                                                     onClick={(e) => { e.stopPropagation(); toggleCategory(category); }}
-                                                    whileHover={{ brightness: isOpen ? 1 : 0.95 }}
+                                                    whileHover={{ filter: isOpen ? "brightness(1)" : "brightness(0.95)" }}
                                                 >
                                                     <div className="w-full h-full bg-gradient-to-b from-transparent to-black/5" />
                                                 </motion.div>
