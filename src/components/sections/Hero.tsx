@@ -17,31 +17,31 @@ const sortFrames = (frames: Record<string, string>) => {
 };
 
 const frameSets = {
-    mango: sortFrames(mangoFramesRaw),
-    apple: sortFrames(appleFramesRaw)
+    apple: sortFrames(appleFramesRaw),
+    mango: sortFrames(mangoFramesRaw)
 };
 
 type FruitType = 'mango' | 'apple';
 
 const content = {
-    mango: {
-        tagline: "100% Natural • Handcrafted • Fresh",
-        title: <>Freshness You Can Feel, <br /><span className="text-[#FF9F1C]">Flavors You'll Love!</span></>,
-        description: "Experience the magic of our signature <span class='font-semibold text-white'>Fruit Bombs</span> - real fruit ice creams served inside the fruit shell.",
-        accentColor: "text-[#FF9F1C]"
-    },
     apple: {
         tagline: "Crisp • Sweet • Refreshing",
         title: <>Nature's Candy, <br /><span className="text-[#ff4e50]">Frozen to Perfection!</span></>,
         description: "Indulge in the crisp sweetness of our <span class='font-semibold text-white'>Apple Fruit Bomb</span> - a refreshing delight in every bite.",
         accentColor: "text-[#ff4e50]"
+    },
+    mango: {
+        tagline: "100% Natural • Handcrafted • Fresh",
+        title: <>Freshness You Can Feel, <br /><span className="text-[#FF9F1C]">Flavors You'll Love!</span></>,
+        description: "Experience the magic of our signature <span class='font-semibold text-white'>Fruit Bombs</span> - real fruit ice creams served inside the fruit shell.",
+        accentColor: "text-[#FF9F1C]"
     }
 };
 
 export const Hero = () => {
     const sectionRef = useRef<HTMLElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [currentFruit, setCurrentFruit] = useState<FruitType>('mango');
+    const [currentFruit, setCurrentFruit] = useState<FruitType>('apple');
     const [images, setImages] = useState<HTMLImageElement[]>([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
