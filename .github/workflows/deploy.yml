@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.HOSTINGER_USERNAME }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: ${{ secrets.HOSTINGER_PORT || 22 }}
-          script: mkdir -p /home/ubuntu/Public/apps/achyutam-fruitam
+          script: mkdir -p /home/ubuntu/Public/apps/icecreamshop
 
       - name: Deploy to VPS
         uses: appleboy/scp-action@v0.1.7
@@ -41,7 +41,7 @@ jobs:
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: ${{ secrets.HOSTINGER_PORT || 22 }}
           source: "dist"
-          target: "/home/ubuntu/Public/apps/achyutam-fruitam"
+          target: "/home/ubuntu/Public/apps/icecreamshop"
           rm: true
 
       - name: Start Application via SSH
@@ -71,17 +71,17 @@ jobs:
             fi
             
             # Reload or Start application
-            # Path will be /home/ubuntu/Public/apps/achyutam-fruitam/dist because we copied 'dist' folder to 'achyutam-fruitam'
+            # Path will be /home/ubuntu/Public/apps/icecreamshop/dist because we copied 'dist' folder to 'icecreamshop'
             
-            pm2 describe achyutam-fruitam > /dev/null
+            pm2 describe icecreamshop > /dev/null
             RUNNING=$?
 
             if [ "${RUNNING}" -ne 0 ]; then
               echo "Starting application with pm2..."
-              pm2 serve /home/ubuntu/Public/apps/achyutam-fruitam/dist 5008 --name "achyutam-fruitam" --spa
+              pm2 serve /home/ubuntu/Public/apps/icecreamshop/dist 5008 --name "icecreamshop" --spa
             else
               echo "Restarting application..."
-              pm2 restart achyutam-fruitam
+              pm2 restart icecreamshop
             fi
             
             pm2 save
