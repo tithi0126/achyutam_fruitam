@@ -50,7 +50,7 @@ export const StoreLocator = ({ limit, showViewAll = false }: StoreLocatorProps =
 
     const handleViewAllStores = () => {
         // Open Google Maps with all store locations
-        const query = encodeURIComponent('Achyutam Fruitam ice cream stores Gujarat Maharashtra');
+        const query = encodeURIComponent('Icecream Shop stores Gujarat Maharashtra');
         window.open(`https://www.google.com/maps/search/${query}`, '_blank');
     };
 
