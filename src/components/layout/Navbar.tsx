@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Instagram } from 'lucide-react';
 import { cn } from '../../lib/utils';
-import logo from '../../assets/logo.jpg';
+import logo from '../../assets/logo.png';
 import { MagneticButton } from '../ui/MagneticButton';
 
 const navLinks = [
@@ -74,7 +74,7 @@ export const Navbar = () => {
                 <Link to="/" className="flex items-center gap-3 group">
                     <motion.img
                         src={logo}
-                        alt="Achyutam Fruitam"
+                        alt="Icecream Shop"
                         className="h-12 w-auto rounded-full transition-transform group-hover:scale-110"
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.6 }}
@@ -87,7 +87,7 @@ export const Navbar = () => {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                     >
-                        Achyutam Fruitam
+                        Icecream Shop
                     </motion.span>
                 </Link>
 
@@ -108,7 +108,7 @@ export const Navbar = () => {
                             {link.name}
                         </Link>
                     ))}
-                    <a href="https://instagram.com/achyutam_fruitam" target="_blank" rel="noopener noreferrer">
+                    <a href="https://instagram.com/icecream_shop" target="_blank" rel="noopener noreferrer">
                         <button className={cn(
                             "p-2 rounded-full transition-colors",
                             isTransparent ? "text-white hover:bg-white/10" : "text-brand-green hover:bg-brand-light"
@@ -187,7 +187,7 @@ export const Navbar = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: navLinks.length * 0.1 }}
                             >
-                                <a href="https://instagram.com/achyutam_fruitam" target="_blank" rel="noopener noreferrer" className="w-full">
+                                <a href="https://instagram.com/icecream_shop" target="_blank" rel="noopener noreferrer" className="w-full">
                                     <button className="w-full flex items-center justify-center gap-2 border-2 border-brand-green text-brand-green py-3 rounded-lg hover:bg-brand-green hover:text-white font-medium transition-all">
                                         <Instagram className="w-5 h-5" /> Follow on Instagram
                                     </button>
