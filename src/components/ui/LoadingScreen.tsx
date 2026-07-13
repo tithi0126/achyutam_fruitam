@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/logo.jpg';
+import logo from '../../assets/logo.png';
 
 export const LoadingScreen: React.FC = () => {
     return (
@@ -7,7 +7,7 @@ export const LoadingScreen: React.FC = () => {
             <div className="relative w-32 h-32 md:w-40 md:h-40 animate-pulse">
                 <img
                     src={logo}
-                    alt="Achyutam Fruitam"
+                    alt="Icecream Shop"
                     className="w-full h-full object-contain rounded-full shadow-xl"
                 />
             </div>
