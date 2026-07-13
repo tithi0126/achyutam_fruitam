@@ -26,7 +26,7 @@ export const About = () => {
             <div className="container mx-auto px-4">
                 <ScrollReveal width="100%" mode="fade-up" className="text-center max-w-3xl mx-auto mb-16">
                     <span className="text-fruit-mango font-medium tracking-wider uppercase text-sm">Our Promise</span>
-                    <h2 className="text-3xl md:text-5xl font-bold font-heading mt-2 mb-6">Why Choose Achyutam Fruitam?</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold font-heading mt-2 mb-6">Why Choose Icecream Shop?</h2>
                     <p className="text-gray-600 leading-relaxed font-light text-lg">
                         We believe nature provides the best flavors. That's why we don't just make ice cream; we craft frozen delights that celebrate the true essence of fruits. From our signature Fruit Bombs to our classic scoops, every bite is a journey to an orchard.
                     </p>
