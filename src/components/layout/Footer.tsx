@@ -20,13 +20,13 @@ export const Footer = () => {
 
                     {/* Brand Info */}
                     <div className="space-y-4">
-                        <h3 className="text-2xl font-heading font-bold text-fruit-mango">Achyutam Fruitam</h3>
+                        <h3 className="text-2xl font-heading font-bold text-fruit-mango">Icecream Shop</h3>
                         <p className="text-gray-300 text-sm leading-relaxed">
                             Creating immersive digital experiences since 2024. Beautifully crafted animations and interactions to delight users.
                         </p>
                         <div className="flex gap-4">
                             <motion.a
-                                href="https://instagram.com/achyutam_fruitam"
+                                href="https://instagram.com/icecream_shop"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:text-fruit-mango transition-colors"
@@ -36,7 +36,7 @@ export const Footer = () => {
                                 <Instagram className="w-5 h-5" />
                             </motion.a>
                             <motion.a
-                                href="https://facebook.com/achyutamfruitam"
+                                href="https://facebook.com/icecreamshop"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:text-fruit-mango transition-colors"
@@ -73,7 +73,7 @@ export const Footer = () => {
                             </li>
                             <li className="flex items-center gap-3">
                                 <Mail className="w-4 h-4 text-fruit-mango" />
-                                <span>hello@achyutamfruitam.com</span>
+                                <span>hello@icecreamshop.com</span>
                             </li>
                         </ul>
                     </div>
@@ -96,7 +96,7 @@ export const Footer = () => {
                 </div>
 
                 <div className="border-t border-white/10 pt-8 text-center text-xs text-gray-400">
-                    <p>© {new Date().getFullYear()} Achyutam Fruitam. All rights reserved. Crafted with ❤️ and ✨</p>
+                    <p>© {new Date().getFullYear()} Icecream Shop. All rights reserved. Crafted with ❤️ and ✨</p>
                 </div>
             </div>
         </footer>
